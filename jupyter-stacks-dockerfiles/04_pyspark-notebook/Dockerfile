@@ -71,7 +71,12 @@ RUN cp -p "${SPARK_HOME}/conf/spark-defaults.conf.template" "${SPARK_HOME}/conf/
 
 USER ${NB_UID}
 
-
+# Install pyarrow
+RUN mamba install --quiet --yes \
+    'pyarrow' && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
 ### ALTEARÇÕES PARA CRIAR DIRETO UMA IMAGEM ALL SPARK
 ###----------------------------------------------
@@ -94,12 +99,5 @@ RUN mamba install --quiet --yes 'spylon-kernel' && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 ###----------------------------------------------
-
-# Install pyarrow
-RUN mamba install --quiet --yes \
-    'pyarrow' && \
-    mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
 
 WORKDIR "${HOME}"
