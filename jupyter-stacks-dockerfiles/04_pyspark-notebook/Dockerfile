@@ -27,22 +27,6 @@ RUN apt-get update --yes && \
     "openjdk-${openjdk_version}-jre-headless" \
     ca-certificates-java && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-    
-### ALTEARÇÕES PARA CRIAR DIRETO UMA IMAGEM ALL SPARK
-###----------------------------------------------
-# RSpark config
-ENV R_LIBS_USER "${SPARK_HOME}/R/lib"
-RUN fix-permissions "${R_LIBS_USER}"
-
-# R pre-requisites
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    fonts-dejavu \
-    gfortran \
-    gcc && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-###----------------------------------------------
-    
 
 # Spark installation
 WORKDIR /tmp
@@ -78,8 +62,25 @@ RUN mamba install --quiet --yes \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-### ALTEARÇÕES PARA CRIAR DIRETO UMA IMAGEM ALL SPARK
-###----------------------------------------------
+WORKDIR "${HOME}"
+
+
+USER root
+
+# RSpark config
+ENV R_LIBS_USER "${SPARK_HOME}/R/lib"
+RUN fix-permissions "${R_LIBS_USER}"
+
+# R pre-requisites
+RUN apt-get update --yes && \
+    apt-get install --yes --no-install-recommends \
+    fonts-dejavu \
+    gfortran \
+    gcc && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+USER ${NB_UID}
+
 # R packages including IRKernel which gets installed globally.
 RUN mamba install --quiet --yes \
     'r-base' \
@@ -98,6 +99,3 @@ RUN mamba install --quiet --yes 'spylon-kernel' && \
     rm -rf "/home/${NB_USER}/.local" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-###----------------------------------------------
-
-WORKDIR "${HOME}"
