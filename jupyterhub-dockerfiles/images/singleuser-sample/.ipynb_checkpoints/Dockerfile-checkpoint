@@ -1,4 +1,5 @@
-FROM jupyter/base-notebook:latest
+#FROM jupyter/base-notebook:latest
+FROM jupyter/all-spark-notebook:latest
 # Built from... https://hub.docker.com/r/jupyter/base-notebook/
 #               https://github.com/jupyter/docker-stacks/blob/HEAD/base-notebook/Dockerfile
 # Built from... Ubuntu 20.04
