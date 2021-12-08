@@ -100,6 +100,7 @@ RUN mamba install --quiet --yes 'spylon-kernel' && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
     
-RUN python -m pip install nbgitpuller --no-cache-dir 
+COPY requirements.txt /tmp/requirements.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements.txt
     
 RUN jupyter serverextension enable --py nbgitpuller --sys-prefix
