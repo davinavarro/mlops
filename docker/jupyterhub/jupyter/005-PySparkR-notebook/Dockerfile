@@ -24,8 +24,17 @@ RUN mamba install --quiet --yes \
     'r-ggplot2' \
     'r-irkernel' \
     'r-rcurl' \
-    'rstudio' \
     'r-sparklyr' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+USER root
+
+RUN apt-get update --yes && \
+    apt-get install --yes --no-install-recommends \
+    gdebi-core
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
+RUN gdebi rstudio-server-2021.09.1-372-amd64.deb
+USER ${NB_UID}
