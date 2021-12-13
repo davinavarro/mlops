@@ -34,6 +34,6 @@ RUN if [[ -n "$PIP_OVERRIDES" ]]; then \
 RUN jupyter serverextension enable --py nbgitpuller --sys-prefix
 
 # Uncomment the line below to make nbgitpuller default to start up in JupyterLab
-#ENV NBGITPULLER_APP=lab
+ENV NBGITPULLER_APP=lab
 
 # conda/pip/apt install additional packages here, if desired.
