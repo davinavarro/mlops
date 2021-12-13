@@ -1,0 +1,6 @@
+jupyterhub==2.0.0
+nbgitpuller==1.0.2
+boto3==1.20.23
+mlflow==1.22.0
+jupyter-server-proxy==3.2.0
+jupyter-rsession-proxy==2.0.1
