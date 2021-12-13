@@ -24,6 +24,7 @@ RUN mamba install --quiet --yes \
     'r-ggplot2' \
     'r-irkernel' \
     'r-rcurl' \
+    'rstudio' \
     'r-sparklyr' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \

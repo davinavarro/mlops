@@ -32,9 +32,12 @@ RUN mamba install --quiet --yes \
     'mlflow==1.22.0' \
     'pandas' \
     'patsy' \
+    'plotly' \
     'protobuf' \
     'pytables' \
     'scikit-image' \
+    'jupyter-server-proxy==3.2.0' \
+    'jupyter-rsession-proxy==2.0.1' \
     'scikit-learn' \
     'scipy' \
     'seaborn' \

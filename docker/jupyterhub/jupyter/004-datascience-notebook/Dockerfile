@@ -2,9 +2,6 @@
 # Distributed under the terms of the Modified BSD License.
 FROM $BASE_IMAGE
 
-
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
-
 # Fix DL4006
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
