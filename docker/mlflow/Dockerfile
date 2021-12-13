@@ -1,4 +1,4 @@
-FROM python:3-slim
+FROM python:3.8.12-slim
 ARG MLFLOW_VERSION=1.22.0
 
 WORKDIR /mlflow/
