@@ -7,6 +7,7 @@ ARG ROOT_CONTAINER=ubuntu:focal
 
 FROM $ROOT_CONTAINER
 
+LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
@@ -146,6 +147,6 @@ RUN sed -re "s/c.NotebookApp/c.ServerApp/g" \
     fix-permissions /etc/jupyter/
 
 # Switch back to jovyan to avoid accidental container runs as root
-USER ${NB_USER}
+USER ${NB_UID}
 
 WORKDIR "${HOME}"
