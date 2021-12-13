@@ -36,5 +36,7 @@ RUN apt-get update --yes && \
     gdebi-core
     apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
-RUN gdebi rstudio-server-2021.09.1-372-amd64.deb
+RUN gdebi rstudio-server-2021.09.1-372-amd64.deb \
+    rm "rstudio-server-2021.09.1-372-amd64.deb"
+    
 USER ${NB_UID}
