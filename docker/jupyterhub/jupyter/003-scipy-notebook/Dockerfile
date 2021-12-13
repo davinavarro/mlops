@@ -28,6 +28,8 @@ RUN mamba install --quiet --yes \
     'matplotlib-base' \
     'numba' \
     'numexpr' \
+    'boto3' \
+    'mlflow==1.22.0' \
     'pandas' \
     'patsy' \
     'protobuf' \
