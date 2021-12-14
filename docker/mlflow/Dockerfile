@@ -1,8 +1,8 @@
-FROM python:3.8.12-slim
+FROM python:3-slim
 ARG MLFLOW_VERSION=1.22.0
 
 WORKDIR /mlflow/
-RUN pip install --no-cache-dir mlflow==$MLFLOW_VERSION
+RUN pip install --no-cache-dir mlflow==$MLFLOW_VERSION mlflow psycopg2 boto3 MySQL-python MySQL-python-connector
 EXPOSE 5000
 
 ENV BACKEND_URI sqlite:////mlflow/mlflow.db
