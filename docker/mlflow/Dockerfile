@@ -2,6 +2,13 @@ FROM python:3.8.12
 ARG MLFLOW_VERSION=1.22.0
 
 
+RUN apt-get update \
+ && apt-get upgrade -y \
+ && apt-get install -y --no-install-recommends \
+        default-libmysqlclient-dev \
+        build-essential  \
+ && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /mlflow/
 COPY requirements.txt /tmp/requirements.txt
 RUN python -m pip install --no-cache-dir \
