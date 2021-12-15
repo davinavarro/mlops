@@ -1,7 +1,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 FROM $BASE_IMAGE
-FROM datamechanics/spark:3.2.0-latest as builder
+FROM datamechanics/spark:3.2.0-latest AS builder
 
 # Fix DL4006
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
