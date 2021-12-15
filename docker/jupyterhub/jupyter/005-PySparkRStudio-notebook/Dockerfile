@@ -16,7 +16,7 @@ RUN apt-get update --yes && \
     gcc && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN conda install rstudio
+RUN conda install -c r rstudio
 
 USER ${NB_UID}
 
