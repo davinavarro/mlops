@@ -1,10 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG OWNER=jupyter
-ARG BASE_CONTAINER=$OWNER/pyspark-notebook
-FROM $BASE_CONTAINER
-
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+FROM $BASE_IMAGE
 
 USER root
 
@@ -20,6 +16,8 @@ RUN apt-get update --yes && \
     gcc && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN conda install rstudio
+
 USER ${NB_UID}
 
 # R packages including IRKernel which gets installed globally.
@@ -30,13 +28,5 @@ RUN mamba install --quiet --yes \
     'r-rcurl' \
     'r-sparklyr' && \
     mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
-# Spylon-kernel
-RUN mamba install --quiet --yes 'spylon-kernel' && \
-    mamba clean --all -f -y && \
-    python -m spylon_kernel install --sys-prefix && \
-    rm -rf "/home/${NB_USER}/.local" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
