@@ -16,8 +16,6 @@ RUN apt-get update --yes && \
     gcc && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN conda install -c r rstudio
-
 USER ${NB_UID}
 
 # R packages including IRKernel which gets installed globally.
@@ -30,3 +28,5 @@ RUN mamba install --quiet --yes \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+RUN conda install -c r rstudio
