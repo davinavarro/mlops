@@ -1,6 +1,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 FROM $BASE_IMAGE
+FROM datamechanics/spark:3.2.0-latest as builder
 
 # Fix DL4006
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -48,6 +49,10 @@ RUN ln -s "spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}" spark && \
 RUN cp -p "${SPARK_HOME}/conf/spark-defaults.conf.template" "${SPARK_HOME}/conf/spark-defaults.conf" && \
     echo 'spark.driver.extraJavaOptions -Dio.netty.tryReflectionSetAccessible=true' >> "${SPARK_HOME}/conf/spark-defaults.conf" && \
     echo 'spark.executor.extraJavaOptions -Dio.netty.tryReflectionSetAccessible=true' >> "${SPARK_HOME}/conf/spark-defaults.conf"
+
+COPY --from=builder /opt/spark/jars/aws-java-sdk-bundle-1.11.901.jar /usr/local/spark/jars/aws-java-sdk-bundle-1.11.901.jar
+COPY --from=builder /opt/spark/jars/hadoop-aws-3.3.1.jar /usr/local/spark/jars/hadoop-aws-3.3.1.jar
+
 
 USER ${NB_UID}
 
