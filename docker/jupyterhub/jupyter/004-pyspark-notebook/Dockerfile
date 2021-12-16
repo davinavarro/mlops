@@ -1,7 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 FROM $BASE_IMAGE
-FROM datamechanics/spark:3.2.0-latest AS builder
 
 # Fix DL4006
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -50,9 +49,11 @@ RUN cp -p "${SPARK_HOME}/conf/spark-defaults.conf.template" "${SPARK_HOME}/conf/
     echo 'spark.driver.extraJavaOptions -Dio.netty.tryReflectionSetAccessible=true' >> "${SPARK_HOME}/conf/spark-defaults.conf" && \
     echo 'spark.executor.extraJavaOptions -Dio.netty.tryReflectionSetAccessible=true' >> "${SPARK_HOME}/conf/spark-defaults.conf"
 
-COPY --from=builder /opt/spark/jars/aws-java-sdk-bundle-1.11.901.jar /usr/local/spark/jars/aws-java-sdk-bundle-1.11.901.jar
-COPY --from=builder /opt/spark/jars/hadoop-aws-3.3.1.jar /usr/local/spark/jars/hadoop-aws-3.3.1.jar
-
+RUN wget -q https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.1/hadoop-aws-3.3.1.jar
+RUN cp hadoop-aws-3.3.1.jar /usr/local/spark/jars/hadoop-aws-3.3.1.jar
+RUN wget -q https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.129/aws-java-sdk-bundle-1.12.129.jar
+RUN cp aws-java-sdk-bundle-1.12.129.jar /usr/local/spark/jars/aws-java-sdk-bundle-1.12.129.jar
+RUN rm hadoop-aws-3.3.1.jar aws-java-sdk-bundle-1.12.129.jar
 
 USER ${NB_UID}
 
