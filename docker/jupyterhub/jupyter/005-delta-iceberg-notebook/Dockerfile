@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 RUN git clone https://github.com/apache/iceberg.git && \
     cd iceberg/python && \
-    pip install -e . && \
+    pip install -e .
 
 USER ${NB_UID}
 
