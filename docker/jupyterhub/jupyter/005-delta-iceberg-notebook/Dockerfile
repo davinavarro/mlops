@@ -12,7 +12,7 @@ RUN git clone https://github.com/apache/iceberg.git && \
 
 USER ${NB_UID}
 
-ARG DELTA_CORE_VERSION="1.0.0"
+ARG DELTA_CORE_VERSION="1.1.0"
 RUN pip install --quiet --no-cache-dir delta-spark==${DELTA_CORE_VERSION} && \
      fix-permissions "${HOME}" && \
      fix-permissions "${CONDA_DIR}"
