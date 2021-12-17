@@ -14,7 +14,7 @@ USER ${NB_UID}
 
 # R packages including IRKernel which gets installed globally.
 RUN mamba install --quiet --yes \
-    'delta-spark' && \
+    'delta-spark==1.1.0' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
